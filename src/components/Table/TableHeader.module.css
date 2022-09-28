@@ -1,0 +1,30 @@
+.table_header {
+    position: fixed;
+    width: 98%;
+    top: 0;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 1fr;
+    gap: 0 0;
+    grid-template-areas:
+    ". . . .";
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px;
+    background-color: #d6dcea;
+}
+
+.tableHeader__item {
+    font-family: 'Akaya Telivigala', cursive;
+    font-size: 22px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 863px) {
+    .tableHeader__item {
+        font-size: 12px;
+    }
+}

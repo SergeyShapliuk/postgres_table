@@ -1,5 +1,14 @@
 import axios from "axios";
+import {instance} from "./instance";
+import {DataType} from "../types/types";
 
+
+
+// export const api={
+//    async getTable(){
+//         return await instance.get<any,DataType[]>("/some_table")
+//     }
+// }
 export const getTable={
     request(){
         return axios.get("http://localhost:3001/some_table")
