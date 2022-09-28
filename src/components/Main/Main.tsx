@@ -12,7 +12,9 @@ const arr2 = ["Название", "Количество", "Расстояние"
 
 function Main() {
     const [table, setTable] = useState<DataType[]>([]);
-    const [value, onChangeOption] = useState(arr1)
+    const [value1, onChangeOption1] = useState(arr1[0])
+    const [value2, onChangeOption2] = useState(arr2[0])
+    const [value, setValue] = useState(null)
     const [perPage, setPerPage] = useState(10);
     const {
         firstContentIndex,
@@ -26,6 +28,7 @@ function Main() {
         contentPerPage: perPage,
         count: table.length,
     });
+    console.log("value",value1)
     const perPages = (e: ChangeEvent<HTMLSelectElement>) => {
         const v = e.currentTarget.value;
         setPerPage(parseInt(v, 10));
@@ -53,19 +56,21 @@ function Main() {
         let id = prompt('Enter merchant id');
         deleteTable.request(id).then(res => console.log('ressss', res))
     }
+const filtered=()=>{
 
+}
     return (
         <div className={style.main}>
             <div className={style.mainContainer}>
                <span>
-                   <Select options={arr1}
-                           value={value}
-                           onChangeOption={onChangeOption}/>
-               <Select options={arr2}
-                       value={value}
-                       onChangeOption={onChangeOption}/>
-                   <input/>
-                   <button>Фильтр</button>
+                   <Select options={arr2}
+                           value={value2}
+                           onChangeOption={onChangeOption2}/>
+               <Select options={arr1}
+                       value={value1}
+                       onChangeOption={onChangeOption1}/>
+                   <input onChange={()=>setValue(value)}/>
+                   <button onClick={filtered}>Фильтр</button>
                    <button>Добавить</button>
                </span>
                 <TableHeader/>
