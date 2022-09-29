@@ -5,3 +5,4 @@ export type DataType={
     quantity:number
     distance:number
 }
+export type FilteredType="равно"|"содержит"| "больше"|"меньше"|"Название"| "Количество"| "Расстояние"

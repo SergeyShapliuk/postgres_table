@@ -1,21 +1,38 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {DataType} from "../../types/types";
-import {getTable, createTable, deleteTable} from "../../api/api";
+
+import {api} from "../../api/api";
 import style from "./Main.module.css"
 import TableHeader from "../Table/TableHeader";
 import Table from "../Table/Table";
 import usePagination from "../../hook/usePagination";
 import Select from "../Select/Select";
+import Pagination from "../Pagination/Pagination";
 
-const arr1 = ["равно", "содержит", "больше", "меньше"]
-const arr2 = ["Название", "Количество", "Расстояние"]
+
+import {createTable, deleteTable, getSomeTable} from "../../store/tableReducer";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+
+
+type ArrType = {}
+
+const arr1 = ["выберите условие", "равно", "содержит", "больше", "меньше"]
+const arr2 = ["выберите колонку", "название", "количество", "расстояние"]
 
 function Main() {
-    const [table, setTable] = useState<DataType[]>([]);
+    console.log("main")
     const [value1, onChangeOption1] = useState(arr1[0])
     const [value2, onChangeOption2] = useState(arr2[0])
-    const [value, setValue] = useState(null)
+    const [value, setValue] = useState<string>("")
+const table=useAppSelector(state => state.tableReducer.table)
+    const dispatch=useAppDispatch()
     const [perPage, setPerPage] = useState(10);
+console.log("table",table)
+    const perPages = (e: ChangeEvent<HTMLSelectElement>) => {
+        const v = e.currentTarget.value;
+        setPerPage(parseInt(v, 10));
+        setPage(1);
+    };
+
     const {
         firstContentIndex,
         lastContentIndex,
@@ -28,37 +45,55 @@ function Main() {
         contentPerPage: perPage,
         count: table.length,
     });
-    console.log("value",value1)
-    const perPages = (e: ChangeEvent<HTMLSelectElement>) => {
-        const v = e.currentTarget.value;
-        setPerPage(parseInt(v, 10));
-        setPage(1);
-    };
 
-    console.log("table", table)
     useEffect(() => {
-        getSomeTable();
+    dispatch(getSomeTable())
     }, []);
 
-    const getSomeTable = () => {
-        getTable.request().then(res => setTable(res))
-    }
     const createSomeTable = () => {
-        let date: any = prompt('Enter table date');
+        let date: any = new Date().toLocaleString();
         let name: any = prompt('Enter table name');
         let quantity: any = prompt('Enter table quantity');
         let distance: any = prompt('Enter table distance');
 
-        createTable.request(date, name, quantity, distance).then(res => console.log("res", res))
+        dispatch(createTable({date, name, quantity, distance}))
     }
 
-    const deleteSomeTable = () => {
-        let id = prompt('Enter merchant id');
-        deleteTable.request(id).then(res => console.log('ressss', res))
+    const deleteSomeTable = (id: string | null) => {
+        // let id = prompt('Enter merchant id');
+        dispatch(deleteTable(id))
     }
-const filtered=()=>{
+    const filtered = (value1: string, value2: string, value: string) => {
+        // console.log('start')
+        // console.log("value1", value1)
+        // console.log("value2", value2)
+        // console.log("value", value)
+        if (value === '' || !value1 || !value2) {
+            return;
+        }
+        if (value2 === "название") {
+            value2 = "name"
+        } else if (value2 === "количество") {
+            value2 = "quantity"
+        } else if (value2 === "расстояние") {
+            value2 = "distance"
+        }
+        let filteredItems;
+        if (value1 === 'равно') {
+            filteredItems = table.filter((item: { [key: string]: any }) => item[value2].toString() === value);
+        } else if (value1 === 'содержит') {
+            filteredItems = table.filter((item: { [key: string]: any; }) => item[value2].toString().toLowerCase().includes(value.toLowerCase()));
+        } else if (value1 === 'больше') {
+            filteredItems = table.filter((item: { [key: string]: any; }) => (value2 === 'quantity' || value2 === 'distance') ? +item[value2] > +value : item[value2] > value);
+        } else if (value1 === 'меньше') {
+            filteredItems = table.filter((item: { [key: string]: any; }) => (value2 === 'quantity' || value2 === 'distance') ? +item[value2] < +value : item[value2] < value);
+        } else {
+            alert("Неопознанное значение в поле условия");
+        }
+        console.log("end", filteredItems)
+        // dispatch(filteredItems)
+    }
 
-}
     return (
         <div className={style.main}>
             <div className={style.mainContainer}>
@@ -69,48 +104,27 @@ const filtered=()=>{
                <Select options={arr1}
                        value={value1}
                        onChangeOption={onChangeOption1}/>
-                   <input onChange={()=>setValue(value)}/>
-                   <button onClick={filtered}>Фильтр</button>
-                   <button>Добавить</button>
+                   <input value={value} onChange={(e) => setValue(e.currentTarget.value)}/>
+                   <button onClick={(e) => filtered(value1, value2, value)}>Фильтр</button>
+                   <button onClick={createSomeTable}>Добавить</button>
                </span>
                 <TableHeader/>
                 {table.slice(firstContentIndex, lastContentIndex).map(
-                    data => (<div key={data.id}>
-                            <Table data={data}/></div>
+                    (data: any) => (<div key={data.id}>
+                            <Table data={data} onClick={deleteSomeTable}/></div>
                     )
                 )}
-            </div>
-            <div className={style.pagination}>
-                <p className={style.text}>
-                    записи {page}/{totalPages}
-                </p>
 
-                <button type="button" onClick={prevPage} className={style.page}>
-                    &larr;
-                </button>
-                {/* @ts-ignore */}
-                {[...Array(totalPages).keys()].map(el => (
-                    <button
-                        type="button"
-                        onClick={() => setPage(el + 1)}
-                        key={el}
-                        className={`${style.page} ${page === el + 1 ? style.active : ''}`}
-                    >
-                        {el + 1}
-                    </button>
-                ))}
-                <button type="button" onClick={nextPage} className={style.page}>
-                    &rarr;
-                </button>
-                <p className={style.text}>по</p>
-                <select className={style.select} onChange={perPages}>
-                    <option value={10}>10</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                </select>
-                <p className={style.text}>записей</p>
+
             </div>
+            <Pagination
+                setPage={setPage}
+                page={page}
+                nextPage={nextPage}
+                perPages={perPages}
+                prevPage={prevPage}
+                totalPages={totalPages}/>
+
         </div>
 
     )

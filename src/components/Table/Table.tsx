@@ -6,24 +6,25 @@ import style from './Table.module.css';
 
 type TablePropsType = {
   data: DataType;
+  onClick:(id:string|null)=>void
 };
 
-function Table({ data }: TablePropsType) {
-  // const date = new Date(data.created_date).toLocaleString().slice(0, 17);
-  const colors: { [key: string]: string } = {
-    new: 'red',
-    started: 'blue',
-    assigned_to: 'orange',
-    completed: 'green',
-    declined: 'black',
-  };
-  const words: { [key: string]: string } = {
-    new: 'новое',
-    started: 'начато',
-    assigned_to: 'назначено',
-    completed: 'выполнено',
-    declined: 'отменено',
-  };
+function Table({ data,onClick }: TablePropsType) {
+  // const date = data.date.toString().slice(0,17);
+  // const colors: { [key: string]: string } = {
+  //   new: 'red',
+  //   started: 'blue',
+  //   assigned_to: 'orange',
+  //   completed: 'green',
+  //   declined: 'black',
+  // };
+  // const words: { [key: string]: string } = {
+  //   new: 'новое',
+  //   started: 'начато',
+  //   assigned_to: 'назначено',
+  //   completed: 'выполнено',
+  //   declined: 'отменено',
+  // };
   return (
     <div className={style.table}>
       <div className={style.tableItem}>
@@ -42,6 +43,7 @@ function Table({ data }: TablePropsType) {
         <button
           type="button"
           className={style.status}
+          onClick={()=>onClick(data.id)}
         >
          удалить
         </button>
