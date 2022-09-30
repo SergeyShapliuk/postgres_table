@@ -1,6 +1,6 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {instance} from "./instance";
-import {DataType} from "../types/types";
+import {DataType} from "../utils/types";
 
 
 export const api = {
@@ -13,6 +13,9 @@ export const api = {
     },
     deleteTable(id:string|null){
         return instance.delete(`/some_table/${id}`)
+    },
+    updateTable(){
+        return instance.put("/some_table/update")
     }
 }
 // export const getTable={

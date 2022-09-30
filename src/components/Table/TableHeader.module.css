@@ -1,7 +1,6 @@
 .table_header {
-    position: fixed;
-    width: 98%;
-    top: 0;
+    width: 100%;
+    top: 10%;
     list-style-type: none;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;

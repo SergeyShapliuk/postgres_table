@@ -1,12 +1,14 @@
 .superSelect{
-    font-size:larger;
+    /*font-size:15px;*/
     width: 200px;
-    height: 25px;
-    appearance: none;
-    background:url("https://img.icons8.com/ios/50/000000/down3.png")  no-repeat right center white ;
-    background-size: 10% ;
+    height: 30px;
+    /*appearance: none;*/
+    /*background:url("https://img.icons8.com/ios/50/000000/down3.png")  no-repeat right center white ;*/
+    /*background-size: 10% ;*/
     outline: 0;
     cursor: pointer;
+    border-radius: 5px;
+    background-color: #cff3fc;
 }
 .superSelect:hover{
     opacity: 0.8;

@@ -1,9 +1,10 @@
 import React from 'react';
 
 import './App.css';
-import Main from "./components/Main/Main";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
+import {Main} from "./components/Main/Main";
+
 
 
 function App() {

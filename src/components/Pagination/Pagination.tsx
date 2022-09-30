@@ -1,11 +1,10 @@
 import React from "react";
-import style from "../Main/Main.module.css";
+import style from "./Pagination.module.css";
 
 
 
 
-function Pagination({page,totalPages,prevPage,setPage,nextPage,perPages}:any){
-
+export const Pagination=React.memo(function ({page,totalPages,prevPage,setPage,nextPage,perPages}:any){
     return(
             <div className={style.pagination}>
                 <p className={style.text}>
@@ -42,5 +41,4 @@ function Pagination({page,totalPages,prevPage,setPage,nextPage,perPages}:any){
 
 
     )
-}
-export default Pagination;
+})

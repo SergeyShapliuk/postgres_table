@@ -1,14 +1,10 @@
 import React from 'react';
 import style from './TableHeader.module.css';
-import {DataType} from "../../types/types";
 
 
-type HeaderType={
-    data:DataType
-}
 
 
-function TableHeader() {
+export const TableHeader=()=> {
   return (
     <div className={style.table_header}>
       <div>
@@ -27,4 +23,4 @@ function TableHeader() {
   );
 }
 
-export default TableHeader;
+

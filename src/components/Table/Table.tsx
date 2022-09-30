@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DataType } from '../../types/types';
+import { DataType } from '../../utils/types';
 
 import style from './Table.module.css';
 
@@ -9,8 +9,8 @@ type TablePropsType = {
   onClick:(id:string|null)=>void
 };
 
-function Table({ data,onClick }: TablePropsType) {
-  // const date = data.date.toString().slice(0,17);
+export const Table=React.memo(function ({ data,onClick }: TablePropsType) {
+  const date = data.date.toString().slice(0,17);
   // const colors: { [key: string]: string } = {
   //   new: 'red',
   //   started: 'blue',
@@ -26,31 +26,30 @@ function Table({ data,onClick }: TablePropsType) {
   //   declined: 'отменено',
   // };
   return (
-    <div className={style.table}>
-      <div className={style.tableItem}>
-        {data.date}
-      </div>
-      <div className={style.tableItem}>
-        {data.name}
-      </div>
-      <div className={style.tableItem}>
-        {data.quantity}
-      </div>
-        <div className={style.tableItem}>
-        {data.distance}
-      </div>
-      <div className={style.tableItem}>
-        <button
-          type="button"
-          className={style.status}
-          onClick={()=>onClick(data.id)}
-        >
-         удалить
-        </button>
+    <div className={style.table} title={"Нажмите для удаления"} onClick={()=>onClick(data.id)}>
+            <div className={style.tableItem}>
+                {date}
+            </div>
+            <div className={style.tableItem}>
+                {data.name}
+            </div>
+            <div className={style.tableItem}>
+                {data.quantity}
+            </div>
+            <div className={style.tableItem}>
+                {data.distance}
+            </div>
 
-      </div>
+       {/* <button*/}
+       {/*   type="button"*/}
+       {/*   onClick={()=>onClick(data.id)}*/}
+       {/*   className={style.button}*/}
+       {/*>*/}
+       {/* </button>*/}
+
+
     </div>
   );
-}
+})
 
-export default Table;
+

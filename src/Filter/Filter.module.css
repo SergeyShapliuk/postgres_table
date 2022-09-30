@@ -1,0 +1,29 @@
+.filter{
+    padding: 30px;
+
+}
+.filter input{
+    width: 195px;
+    height: 26px;
+     outline: none;
+    border: 1px #4d4d4e solid;
+    border-radius: 5px;
+    background-color: #cff3fc;
+    cursor: pointer;
+
+}
+.filter input:hover{
+    opacity: 0.8;
+}
+.filter button{
+     width: 100px;
+     height: 30px;
+     background-color: #caf1da;
+     border: 1px #4d4d4e solid;
+    border-radius: 5px;
+     color: #0e3944;
+    cursor: pointer;
+ }
+.filter button:hover{
+    opacity: 0.8;
+}

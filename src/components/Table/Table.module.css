@@ -20,17 +20,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-.tableItem_under {
-    color: #6e768a;
+.table:active{
+    color: red;
 }
-
-.status {
-    font-weight: 600;
-    width: 70%;
-    padding: 5px;
-    color: white;
-    border-radius: 5px;
-    border: none;
-}
-
