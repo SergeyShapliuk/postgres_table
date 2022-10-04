@@ -1,14 +1,19 @@
 .superSelect{
     /*font-size:15px;*/
-    width: 200px;
-    height: 30px;
+    width: 135px;
+    height: 35px;
+   margin-right: 25px;
     /*appearance: none;*/
     /*background:url("https://img.icons8.com/ios/50/000000/down3.png")  no-repeat right center white ;*/
     /*background-size: 10% ;*/
-    outline: 0;
+    outline: none;
+    border: none;
     cursor: pointer;
-    border-radius: 5px;
-    background-color: #cff3fc;
+    border-radius: 3px;
+    /*background-color: #cff3fc;*/
+    -webkit-box-shadow: 0px 0px 10px -3px rgba(34, 60, 80, 0.43) inset;
+    -moz-box-shadow: 0px 0px 10px -3px rgba(34, 60, 80, 0.43) inset;
+    box-shadow: 0px 0px 10px -3px rgba(34, 60, 80, 0.43) inset;
 }
 .superSelect:hover{
     opacity: 0.8;
@@ -20,4 +25,11 @@
 .option:checked{
     background: #d58b83;
     color: blue;
+}
+@media screen and (max-width: 884px){
+    .superSelect{
+        width: 90%;
+
+    }
+
 }

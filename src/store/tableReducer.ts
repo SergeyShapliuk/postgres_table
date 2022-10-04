@@ -1,65 +1,95 @@
-import {DataType} from "../utils/types";
+import {DataType, RequestStatusType} from "../utils/types";
 import {api} from "../api/api";
 import {createAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 
+export const getTable = createAsyncThunk<DataType[], void>
+('tableReducer/getTable', async (_, {dispatch}) => {
+    console.log("initalize")
+    dispatch(setAppStatus({status: "loading"}))
+    try {
+        const response = await api.getTable()
+        dispatch(setAppStatus({status: "succeeded"}))
+        return response.data
+    } catch (e) {
 
-
-export const getSomeTable = createAsyncThunk<DataType[] | undefined,void>(
-    "tableReducer/getSomeTable",async ()=>{
-        try {
-            const response = await api.getTable()
-            return response.data
-        }catch (e){
-
-        }
     }
-)
-export const createTable = createAsyncThunk<{param:{date:string,name:string,quantity:number,distance:number}},any>(
-    "tableReducer/createTable",async (param)=>{
-
+})
+export const createTable = createAsyncThunk<DataType[],{ date: string, name: string, quantity: number, distance: number } >(
+    "tableReducer/createTable", async (param, {dispatch}) => {
+        dispatch(setAppStatus({status: "loading"}))
         try {
             const response = await api.createTable(param)
-            return response.data
-        }catch (e){
-
+            if (response.data.length) {
+                dispatch(setAppStatus({status: "succeeded"}))
+                console.log("werwerwer", response.data)
+                return response.data
+            }
+        } catch (e) {
         }
     }
 )
-export const deleteTable = createAsyncThunk<{id:string},any>(
-    "tableReducer/deleteTable",async (id)=>{
+export const deleteTable = createAsyncThunk< string, string>(
+    "tableReducer/deleteTable", async (id,{dispatch}) => {
+       dispatch(setAppStatus({status:"loading"}))
         try {
             const response = await api.deleteTable(id)
+            console.log("response",response.data)
+            dispatch(setAppStatus({status:"succeeded"}))
             return response.data
-        }catch (e){
+        } catch (e) {
 
         }
     }
 )
 export const filteredTable = createAction(
-    "tableReducer/filteredTable",(table)=> {
-        console.log("reducer",table)
-        return {payload:table}
+    "tableReducer/filteredTable", (table) => {
+        return {payload: table}
     })
+const setAppStatus = createAction<{ status: RequestStatusType }>('appActions/setAppStatus')
+const setAppError = createAction<{ error: string | null }>('appActions/setAppError')
+
+export const tableAsyncActions = {
+    getTable,
+    createTable,
+    deleteTable,
+    filteredTable,
+    setAppStatus,
+    setAppError
+}
 
 
-export const mainSlice=createSlice({
-    name:"tableReducer",
-    initialState:{
+export const mainSlice = createSlice({
+    name: "tableReducer",
+    initialState: {
         isInitialized: false,
-        table:[] as DataType[],
+        status: "idle" as RequestStatusType,
+        table: [] as DataType[],
     },
-    reducers:{},
-    extraReducers:(builder => {
-       builder
-           .addCase(getSomeTable.fulfilled,(state,action)=>{
-               state.table=action.payload?action.payload.reverse():[]
-           })
-           .addCase(filteredTable,(state,action)=>{
-               state.table=action.payload?action.payload:[]
-           })
+    reducers: {
+
+    },
+    extraReducers: (builder => {
+        builder
+            .addCase(getTable.fulfilled, (state, action) => {
+                state.table = action.payload ? action.payload.reverse() : []
+            })
+            .addCase(createTable.fulfilled, (state, action) => {
+                state.table = [...action.payload, ...state.table]
+            })
+            .addCase(deleteTable.fulfilled,(state,action)=>{
+                state.table=state.table.filter(f=>f.id!==action.payload)
+            })
+            .addCase(tableAsyncActions.setAppStatus, (state, action) => {
+                state.status = action.payload.status
+            })
+            .addCase(tableAsyncActions.filteredTable,(state,action)=>{
+                state.table=action.payload
+            })
 
     })
 })
 
-export const tableReducer=mainSlice.reducer
+
+export const tableReducer = mainSlice.reducer
+export const {} = mainSlice.actions

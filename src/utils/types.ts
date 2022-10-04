@@ -6,3 +6,4 @@ export type DataType={
     distance:number
 }
 export type FilteredType="равно"|"содержит"| "больше"|"меньше"|"Название"| "Количество"| "Расстояние"
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

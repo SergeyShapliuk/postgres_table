@@ -1,33 +1,36 @@
 import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
-
-
 import style from "./Main.module.css"
-
-
 import usePagination from "../../hook/usePagination";
-
-
-
-import {deleteTable, getSomeTable} from "../../store/tableReducer";
-import {useAppDispatch, useAppSelector} from "../../store/store";
+import {useAppSelector} from "../../store/store";
 import {Pagination} from "../Pagination/Pagination";
-import {Table} from "../Table/Table";
+
 import {Filter} from "../../Filter/Filter";
 import {TableHeader} from "../Table/TableHeader";
+import Modal from "../modal/Modal";
+import {NewRow} from "../NewRowModal/NewRow";
+import {Table, tableActions} from "../Table";
+import {useActions} from "../../utils/redux-utils";
+import {Preloader} from "../preloader/Preloader";
 
 
-export const Main=React.memo(function () {
+
+
+export const Main =()=>{
     console.log("main")
-
-const table=useAppSelector(state => state.tableReducer.table)
-    const dispatch=useAppDispatch()
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const table = useAppSelector(state => state.tableReducer.table)
+    const status = useAppSelector(state => state.tableReducer.status)
+    const newRowModalHandler = () => {
+        setShowModal(!showModal)
+    }
+    const {getTable, createTable, deleteTable} = useActions(tableActions)
     const [perPage, setPerPage] = useState(10);
-console.log("table",table)
-    const perPages = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    console.log("table", table)
+    const perPages =(e: ChangeEvent<HTMLSelectElement>) => {
         const v = e.currentTarget.value;
         setPerPage(parseInt(v, 10));
         setPage(1);
-    },[table]);
+    }
 
     const {
         firstContentIndex,
@@ -43,45 +46,51 @@ console.log("table",table)
     });
 
     useEffect(() => {
-        if(!table.length){
-            dispatch(getSomeTable())
+        if (!table.length) {
+            console.log("useefect")
+            getTable()
         }
     }, []);
 
-
-    const deleteSomeTable = (id: string | null) => {
-       let choose = window.confirm("Вы хотите удалить данные?")
-        if(choose){
-            dispatch(deleteTable(id))
-            dispatch(getSomeTable())
+    const createSomeTable= useCallback(async (name: string, quantity: number, distance: number) => {
+        let date = new Date().toLocaleString();
+            createTable({date, name, quantity, distance})
+          setShowModal(!showModal)
+    },[])
+    const deleteSomeTable = (id: string) => {
+        let choose = window.confirm("Вы хотите удалить данные?")
+        if (choose) {
+            deleteTable(id)
         }
     }
 
-
     return (
         <div className={style.mainBlock}>
-        <div className={style.main}>
-            <div className={style.mainContainer}>
-                <Filter/>
-                <TableHeader/>
-                {table.length && table.slice(firstContentIndex, lastContentIndex).map(
-                    (data: any) => (<div key={data.id}>
-                            <Table data={data} onClick={deleteSomeTable}/></div>
-                    )
-                )}
+            <div className={style.main}>
+                <Filter onClickBg={newRowModalHandler}/>
+                <div className={style.mainContainer}>
+
+                    <TableHeader/>
+                    {table.length && table.slice(firstContentIndex, lastContentIndex).map(
+                        data => <Table key={data.id} data={data} onClick={deleteSomeTable}/>
+
+                    )}
+                    <Modal onClickBg={newRowModalHandler} showModal={showModal}>
+                        <NewRow createSomeTable={createSomeTable} onClickBg={newRowModalHandler}/>
+                    </Modal>
+                </div>
+                <Pagination
+                    setPage={setPage}
+                    page={page}
+                    nextPage={nextPage}
+                    perPages={perPages}
+                    prevPage={prevPage}
+                    totalPages={totalPages}/>
+                <Preloader status={status}/>
 
             </div>
-            <Pagination
-                setPage={setPage}
-                page={page}
-                nextPage={nextPage}
-                perPages={perPages}
-                prevPage={prevPage}
-                totalPages={totalPages}/>
-
-        </div>
         </div>
 
     )
-})
+}
 

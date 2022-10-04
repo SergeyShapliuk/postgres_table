@@ -1,11 +1,11 @@
 .table {
+    width: 100%;
     font-size: 0.8em;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    width: 100%;
     margin-top: 5px;
     background-color: #f3f0f0;
     border-radius: 5px;
@@ -15,11 +15,16 @@
 .tableItem {
     width: 25%;
     padding: 5px;
+    font-size: 15px;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.tableItem_under{
+    color: #6e768a;
+}
+
 .table:active{
     color: red;
 }

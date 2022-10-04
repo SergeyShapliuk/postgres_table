@@ -1,40 +1,37 @@
 import React, {useState} from "react";
 import Select from "../components/Select/Select";
-import {createTable, filteredTable, getSomeTable} from "../store/tableReducer";
-import {useAppDispatch, useAppSelector} from "../store/store";
+import {filteredTable} from "../store/tableReducer";
+
 import style from "./Filter.module.css"
-import * as net from "net";
+import {tableActions} from "../components/Table";
+import {useActions} from "../utils/redux-utils";
+import {useAppSelector} from "../store/store";
+
+type FilterPropsType={
+    onClickBg:()=>void
+}
+
 
 const arr1 = ["выберите колонку", "название", "количество", "расстояние"]
 const arr2 = ["выберите условие", "равно", "содержит", "больше", "меньше"]
 
 
-export const Filter = ()=> {
-    const dispatch = useAppDispatch()
+export const Filter = ({onClickBg}:FilterPropsType) => {
+
     const table = useAppSelector(state => state.tableReducer.table)
+    const {getTable,filteredTable} = useActions(tableActions)
 
     const [columns, setColumns] = useState(arr1[0])
     const [conditions, setConditions] = useState(arr2[0])
     const [value, setValue] = useState<string>("")
 
-    const createSomeTable = () => {
-        let date = new Date().toLocaleString();
-        let name = prompt('Введите имя');
-        let quantity = prompt('Введите количество');
-        let distance = prompt('Введите расстояние');
-        if (name?.trim() && typeof Number(quantity)==="number" && typeof Number(distance) === "number") {
-            dispatch(createTable({date, name, quantity, distance}))
-            dispatch(getSomeTable())
-        } else {
-            alert("Поля должны быть заполнены корректно")
-        }
-    }
+
     const filtered = (columns: string, conditions: string, value: string) => {
         console.log('start')
         console.log("columns", columns)
         console.log("conditions", conditions)
         console.log("value", value)
-        if (value === '' || !columns || !conditions) {
+        if (value.trim() === '' || columns==="выберите колонку" || conditions==="выберите условие") {
             return alert("Выберите и введите данные")
         }
         if (columns === "название") {
@@ -57,29 +54,33 @@ export const Filter = ()=> {
             return
         }
         if (filteredItems.length) {
-            dispatch(filteredTable(filteredItems))
+            filteredTable(filteredItems)
             setValue("")
         } else {
             alert("Некорректное значение в поле условия");
         }
     }
     const reload = () => {
-        dispatch(getSomeTable())
+        getTable()
     }
     return (
         <div className={style.filter}>
-               <span>
-                   <Select options={arr1}
-                           value={columns}
-                           onChangeOption={setColumns}/>
-               <Select options={arr2}
-                       value={conditions}
-                       onChangeOption={setConditions}/>
-                   <input value={value} pattern={".{1,}"} required onChange={(e) => setValue(e.currentTarget.value)}/>
-                   <button onClick={(e) => filtered(columns, conditions, value)}>Фильтр</button>
-                   <button onClick={createSomeTable}>Добавить</button>
-                   <button onClick={reload}>Обновить</button>
-               </span>
+
+                <Select options={arr1}
+                        value={columns}
+                        onChangeOption={setColumns}/>
+                <Select options={arr2}
+                        value={conditions}
+                        onChangeOption={setConditions}/>
+                <input value={value} pattern={".{1,}"} required onChange={(e) => setValue(e.currentTarget.value)}/>
+
+
+                       <button onClick={(e) => filtered(columns, conditions, value)}>Фильтр</button>
+                       <button onClick={onClickBg}>Добавить</button>
+                       <button onClick={reload}>Обновить</button>
+
+
+
 
         </div>
     )
