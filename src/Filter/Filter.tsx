@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Select from "../components/Select/Select";
-import {filteredTable} from "../store/tableReducer";
+
 
 import style from "./Filter.module.css"
 import {tableActions} from "../components/Table";

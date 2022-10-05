@@ -63,6 +63,12 @@ export const Main =()=>{
             deleteTable(id)
         }
     }
+    const updateSomeTable = (id: string) => {
+        let choose = window.confirm("Вы хотите удалить данные?")
+        if (choose) {
+            deleteTable(id)
+        }
+    }
 
     return (
         <div className={style.mainBlock}>

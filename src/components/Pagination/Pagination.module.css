@@ -1,8 +1,10 @@
 .pagination {
+    width: 97%;
     position: sticky;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+margin:0 auto;
     gap: 1%;
 }
 
@@ -36,7 +38,7 @@
     padding: 7px;
     background-color: #d4dae9;
 }
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 590px) {
     .pagination{
         flex-wrap: wrap;
     }
@@ -50,7 +52,8 @@
     }
 
     .page {
-        height: 1rem;
-        width:1rem;
+        width:1.2rem;
+        height: 1.2rem;
+
     }
 }

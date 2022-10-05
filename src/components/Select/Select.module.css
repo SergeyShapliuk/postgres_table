@@ -2,7 +2,8 @@
     /*font-size:15px;*/
     width: 135px;
     height: 35px;
-   margin-right: 25px;
+    /*margin: 0 auto;*/
+   margin-left: 20px;
     /*appearance: none;*/
     /*background:url("https://img.icons8.com/ios/50/000000/down3.png")  no-repeat right center white ;*/
     /*background-size: 10% ;*/
@@ -28,7 +29,8 @@
 }
 @media screen and (max-width: 884px){
     .superSelect{
-        width: 90%;
+        width: 120px;
+        margin: 10px auto;
 
     }
 

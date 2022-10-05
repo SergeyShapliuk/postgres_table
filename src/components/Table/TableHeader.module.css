@@ -23,7 +23,7 @@
     text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 863px) {
+@media screen and (max-width: 590px) {
     .tableHeader__item {
         font-size: 12px;
     }

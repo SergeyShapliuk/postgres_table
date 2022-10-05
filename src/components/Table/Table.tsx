@@ -26,6 +26,7 @@ export const Table=React.memo(function ({ data,onClick }: TablePropsType) {
   //   completed: 'выполнено',
   //   declined: 'отменено',
   // };
+
   return (
     <div className={style.table} title={"Нажмите для удаления"} onClick={()=>onClick(data.id)}>
             <div className={style.tableItem}>

@@ -1,6 +1,10 @@
 .filter{
 width: 98%;
-   margin: 15px;
+    /*display: flex;*/
+    /*justify-content: flex-start;*/
+    /*background-color: #61dafb;*/
+    /*padding: 15px;*/
+   margin: 15px auto;
 
     /*grid-template-columns: 33.3% 33.3% 33.4%;*/
     /*grid-template-areas:*/
@@ -13,7 +17,7 @@ width: 98%;
 .filter input{
     width: 115px;
     height: 33px;
-    /*margin-left: 20px;*/
+    margin-left: 20px;
     padding-left: 10px;
     padding-right: 10px;
      outline: none;
@@ -34,7 +38,7 @@ width: 98%;
     float: right;
     font-family:"Open Sans",sans-serif;
     font-weight: 500;
-    margin-right: 15px;
+    margin-right: 20px;
      background-color: #e7ddae;
      border: none;
     border-radius: 3px;
@@ -52,13 +56,14 @@ width: 98%;
 }
 @media screen and (max-width:884px ){
     .filter{
+        width: 98%;
         display: grid;
 grid-template-columns: repeat(3,33.3%);
 /*margin: 10px 10px 10px -7px;*/
-        gap: 3px;
+/*        gap: 3px;*/
 /*padding: 10%;*/
 
-        margin: 3px 3px 15px 5px;
+        margin: 0 auto;
         /*grid-template-rows: repeat(2,10px);*/
     /*    grid-template-areas:*/
     /*"AAAA BBBB"*/
@@ -67,7 +72,7 @@ grid-template-columns: repeat(3,33.3%);
         /*grid-template-rows: repeat(2,1fr);*/
 
 
-        width: 97%;
+
 
         /*padding: 15px;*/
         /*display: block;*/
@@ -84,8 +89,8 @@ grid-template-columns: repeat(3,33.3%);
     .filter input {
         /*grid-row: span 10;*/
         /*grid-area: A;*/
-        width: 80%;
-
+        width: 100px;
+margin: 10px auto;
         /*margin-left: 20px;*/
         /*padding-left: 10px;*/
         /*padding-right: 10px;*/
@@ -96,9 +101,10 @@ grid-template-columns: repeat(3,33.3%);
 
     .filter button{
 /*left: 3%;*/
-        width: 90%;
-        margin-top: 10px;
-        margin-left: 3%;
+        width: 100px;
+        margin: 0 auto;
+        /*margin-top: 10px;*/
+        /*margin-left: 3%;*/
         /*height: 35px;*/
         /*!*float: right;*!*/
         /*font-family:"Open Sans",sans-serif;*/
