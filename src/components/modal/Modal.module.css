@@ -13,18 +13,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 350px;
+    width: calc(250px + 15vw);
+    height: calc(100px + 30vh);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -80%);
     background: #FFFFFF;
     right: 80px;
     z-index: 21;
-}
-@media screen and (max-width: 430px){
-    .modal{
-        width: 90%;
-    }
-
 }

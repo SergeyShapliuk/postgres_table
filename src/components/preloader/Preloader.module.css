@@ -4,12 +4,12 @@
 
 .preloader img {
     position: absolute;
-    width: 35em;
+    width: calc(100px + 35vw);
     top: 50%;
     left: 50%;
     right: 50%;
     bottom: 50%;
-    transform: translate(-50%, -170%);
+    transform: translate(-50%, -60%);
     margin: 0 auto;
     opacity: .3;
 }

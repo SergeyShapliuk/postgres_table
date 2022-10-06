@@ -4,19 +4,20 @@ import {RequestStatusType} from "../../utils/types";
 
 
 type PreloaderType = {
-    status: RequestStatusType
+    // status: RequestStatusType
+    children:any
 }
 
-export const Preloader = ({status}: PreloaderType) => {
+export const Preloader = ({ children}: PreloaderType) => {
     return (
         <div className={s.preloader}>
             {
-                status === "loading" &&
+                // status === "loading" &&
                 <img
                     src={require("../../assets/preloader.gif")}
                     alt='preloader'
                 />
-            }
+            }{children}
         </div>
     )
 }

@@ -12,7 +12,8 @@ import {useActions} from "../../utils/redux-utils";
 import {Preloader} from "../preloader/Preloader";
 
 
-export const Main = () => {
+
+export const Main =()=>{
     console.log("main")
     const [showModal, setShowModal] = useState<boolean>(false)
     const table = useAppSelector(state => state.tableReducer.table)
@@ -23,7 +24,7 @@ export const Main = () => {
     const {getTable, createTable, deleteTable} = useActions(tableActions)
     const [perPage, setPerPage] = useState(10);
 
-    const perPages = (e: ChangeEvent<HTMLSelectElement>) => {
+    const perPages =(e: ChangeEvent<HTMLSelectElement>) => {
         const v = e.currentTarget.value;
         setPerPage(parseInt(v, 10));
         setPage(1);
@@ -47,11 +48,11 @@ export const Main = () => {
         }
     }, []);
 
-    const createSomeTable = useCallback(async (name: string, quantity: number, distance: number) => {
+    const createSomeTable= useCallback(async (name: string, quantity: number, distance: number) => {
         let date = new Date().toLocaleString();
-        createTable({date, name, quantity, distance})
-        setShowModal(!showModal)
-    }, [])
+            createTable({date, name, quantity, distance})
+          setShowModal(!showModal)
+    },[])
     const deleteSomeTable = (id: string) => {
         let choose = window.confirm("Вы хотите удалить данные?")
         if (choose) {
@@ -73,6 +74,7 @@ export const Main = () => {
                     <TableHeader/>
                     {table.length && table.slice(firstContentIndex, lastContentIndex).map(
                         data => <Table key={data.id} data={data} onClick={deleteSomeTable}/>
+
                     )}
                     <Modal onClickBg={newRowModalHandler} showModal={showModal}>
                         <NewRow createSomeTable={createSomeTable} onClickBg={newRowModalHandler}/>
@@ -85,9 +87,9 @@ export const Main = () => {
                     perPages={perPages}
                     prevPage={prevPage}
                     totalPages={totalPages}/>
-                <Preloader status={status}/>
             </div>
         </div>
+
     )
 }
 
