@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/postgres_table/static/css/main.ed74c3a8.css",
-    "main.js": "/postgres_table/static/js/main.1a048f19.js",
+    "main.js": "/postgres_table/static/js/main.ee2da0e2.js",
     "static/js/787.6ccd67dc.chunk.js": "/postgres_table/static/js/787.6ccd67dc.chunk.js",
     "static/media/preloader.gif": "/postgres_table/static/media/preloader.5c8d1eb4a6265280f7a7.gif",
     "index.html": "/postgres_table/index.html",
     "main.ed74c3a8.css.map": "/postgres_table/static/css/main.ed74c3a8.css.map",
-    "main.1a048f19.js.map": "/postgres_table/static/js/main.1a048f19.js.map",
+    "main.ee2da0e2.js.map": "/postgres_table/static/js/main.ee2da0e2.js.map",
     "787.6ccd67dc.chunk.js.map": "/postgres_table/static/js/787.6ccd67dc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ed74c3a8.css",
-    "static/js/main.1a048f19.js"
+    "static/js/main.ee2da0e2.js"
   ]
 }
