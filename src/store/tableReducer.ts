@@ -5,7 +5,6 @@ import {createAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 export const getTable = createAsyncThunk<DataType[], void>
 ('tableReducer/getTable', async (_, {dispatch}) => {
-    console.log("initalize")
     dispatch(setAppStatus({status: "loading"}))
     try {
         const response = await api.getTable()
@@ -15,27 +14,25 @@ export const getTable = createAsyncThunk<DataType[], void>
 
     }
 })
-export const createTable = createAsyncThunk<DataType[],{ date: string, name: string, quantity: number, distance: number } >(
+export const createTable = createAsyncThunk<DataType[], { date: string, name: string, quantity: number, distance: number }>(
     "tableReducer/createTable", async (param, {dispatch}) => {
         dispatch(setAppStatus({status: "loading"}))
         try {
             const response = await api.createTable(param)
             if (response.data.length) {
                 dispatch(setAppStatus({status: "succeeded"}))
-                console.log("werwerwer", response.data)
                 return response.data
             }
         } catch (e) {
         }
     }
 )
-export const deleteTable = createAsyncThunk< string, string>(
-    "tableReducer/deleteTable", async (id,{dispatch}) => {
-       dispatch(setAppStatus({status:"loading"}))
+export const deleteTable = createAsyncThunk<string, string>(
+    "tableReducer/deleteTable", async (id, {dispatch}) => {
+        dispatch(setAppStatus({status: "loading"}))
         try {
             const response = await api.deleteTable(id)
-            console.log("response",response.data)
-            dispatch(setAppStatus({status:"succeeded"}))
+            dispatch(setAppStatus({status: "succeeded"}))
             return response.data
         } catch (e) {
 
@@ -66,9 +63,7 @@ export const mainSlice = createSlice({
         status: "idle" as RequestStatusType,
         table: [] as DataType[],
     },
-    reducers: {
-
-    },
+    reducers: {},
     extraReducers: (builder => {
         builder
             .addCase(getTable.fulfilled, (state, action) => {
@@ -77,14 +72,14 @@ export const mainSlice = createSlice({
             .addCase(createTable.fulfilled, (state, action) => {
                 state.table = [...action.payload, ...state.table]
             })
-            .addCase(deleteTable.fulfilled,(state,action)=>{
-                state.table=state.table.filter(f=>f.id!==action.payload)
+            .addCase(deleteTable.fulfilled, (state, action) => {
+                state.table = state.table.filter(f => f.id !== action.payload)
             })
             .addCase(tableAsyncActions.setAppStatus, (state, action) => {
                 state.status = action.payload.status
             })
-            .addCase(tableAsyncActions.filteredTable,(state,action)=>{
-                state.table=action.payload
+            .addCase(tableAsyncActions.filteredTable, (state, action) => {
+                state.table = action.payload
             })
 
     })

@@ -22,3 +22,9 @@
     right: 80px;
     z-index: 21;
 }
+@media screen and (max-width: 430px){
+    .modal{
+        width: 90%;
+    }
+
+}

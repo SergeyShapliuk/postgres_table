@@ -3,7 +3,6 @@ import style from "./Main.module.css"
 import usePagination from "../../hook/usePagination";
 import {useAppSelector} from "../../store/store";
 import {Pagination} from "../Pagination/Pagination";
-
 import {Filter} from "../../Filter/Filter";
 import {TableHeader} from "../Table/TableHeader";
 import Modal from "../modal/Modal";
@@ -13,9 +12,7 @@ import {useActions} from "../../utils/redux-utils";
 import {Preloader} from "../preloader/Preloader";
 
 
-
-
-export const Main =()=>{
+export const Main = () => {
     console.log("main")
     const [showModal, setShowModal] = useState<boolean>(false)
     const table = useAppSelector(state => state.tableReducer.table)
@@ -25,13 +22,12 @@ export const Main =()=>{
     }
     const {getTable, createTable, deleteTable} = useActions(tableActions)
     const [perPage, setPerPage] = useState(10);
-    console.log("table", table)
-    const perPages =(e: ChangeEvent<HTMLSelectElement>) => {
+
+    const perPages = (e: ChangeEvent<HTMLSelectElement>) => {
         const v = e.currentTarget.value;
         setPerPage(parseInt(v, 10));
         setPage(1);
     }
-
     const {
         firstContentIndex,
         lastContentIndex,
@@ -47,16 +43,15 @@ export const Main =()=>{
 
     useEffect(() => {
         if (!table.length) {
-            console.log("useefect")
             getTable()
         }
     }, []);
 
-    const createSomeTable= useCallback(async (name: string, quantity: number, distance: number) => {
+    const createSomeTable = useCallback(async (name: string, quantity: number, distance: number) => {
         let date = new Date().toLocaleString();
-            createTable({date, name, quantity, distance})
-          setShowModal(!showModal)
-    },[])
+        createTable({date, name, quantity, distance})
+        setShowModal(!showModal)
+    }, [])
     const deleteSomeTable = (id: string) => {
         let choose = window.confirm("Вы хотите удалить данные?")
         if (choose) {
@@ -69,7 +64,6 @@ export const Main =()=>{
             deleteTable(id)
         }
     }
-
     return (
         <div className={style.mainBlock}>
             <div className={style.main}>
@@ -79,7 +73,6 @@ export const Main =()=>{
                     <TableHeader/>
                     {table.length && table.slice(firstContentIndex, lastContentIndex).map(
                         data => <Table key={data.id} data={data} onClick={deleteSomeTable}/>
-
                     )}
                     <Modal onClickBg={newRowModalHandler} showModal={showModal}>
                         <NewRow createSomeTable={createSomeTable} onClickBg={newRowModalHandler}/>
@@ -93,10 +86,8 @@ export const Main =()=>{
                     prevPage={prevPage}
                     totalPages={totalPages}/>
                 <Preloader status={status}/>
-
             </div>
         </div>
-
     )
 }
 

@@ -1,37 +1,28 @@
 import React, {useState} from "react";
 import Select from "../components/Select/Select";
-
-
 import style from "./Filter.module.css"
 import {tableActions} from "../components/Table";
 import {useActions} from "../utils/redux-utils";
 import {useAppSelector} from "../store/store";
 
-type FilterPropsType={
-    onClickBg:()=>void
+type FilterPropsType = {
+    onClickBg: () => void
 }
-
-
 const arr1 = ["выберите колонку", "название", "количество", "расстояние"]
 const arr2 = ["выберите условие", "равно", "содержит", "больше", "меньше"]
 
-
-export const Filter = ({onClickBg}:FilterPropsType) => {
+export const Filter = ({onClickBg}: FilterPropsType) => {
 
     const table = useAppSelector(state => state.tableReducer.table)
-    const {getTable,filteredTable} = useActions(tableActions)
+    const {getTable, filteredTable} = useActions(tableActions)
 
-    const [columns, setColumns] = useState(arr1[0])
-    const [conditions, setConditions] = useState(arr2[0])
+    const [columns, setColumns] = useState<string>(arr1[0])
+    const [conditions, setConditions] = useState<string>(arr2[0])
     const [value, setValue] = useState<string>("")
 
 
     const filtered = (columns: string, conditions: string, value: string) => {
-        console.log('start')
-        console.log("columns", columns)
-        console.log("conditions", conditions)
-        console.log("value", value)
-        if (value.trim() === '' || columns==="выберите колонку" || conditions==="выберите условие") {
+        if (value.trim() === '' || columns === "выберите колонку" || conditions === "выберите условие") {
             return alert("Выберите и введите данные")
         }
         if (columns === "название") {
@@ -62,24 +53,24 @@ export const Filter = ({onClickBg}:FilterPropsType) => {
     }
     const reload = () => {
         getTable()
+        setColumns(arr1[0])
+        setConditions(arr2[0])
+        setValue("")
     }
     return (
         <div className={style.filter}>
 
-                <Select options={arr1}
-                        value={columns}
-                        onChangeOption={setColumns}/>
-                <Select options={arr2}
-                        value={conditions}
-                        onChangeOption={setConditions}/>
-                <input value={value} pattern={".{1,}"} required onChange={(e) => setValue(e.currentTarget.value)}/>
+            <Select options={arr1}
+                    value={columns}
+                    onChangeOption={setColumns}/>
+            <Select options={arr2}
+                    value={conditions}
+                    onChangeOption={setConditions}/>
+            <input value={value} pattern={".{1,}"} required onChange={(e) => setValue(e.currentTarget.value)}/>
 
-
-                       <button onClick={(e) => filtered(columns, conditions, value)}>Фильтр</button>
-                       <button onClick={onClickBg}>Добавить</button>
-                       <button onClick={reload}>Обновить</button>
-
-
+            <button onClick={reload}>Обновить</button>
+            <button onClick={onClickBg}>Добавить</button>
+            <button onClick={() => filtered(columns, conditions, value)}>Фильтр</button>
 
 
         </div>

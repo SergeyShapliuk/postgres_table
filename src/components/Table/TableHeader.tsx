@@ -3,7 +3,6 @@ import style from './TableHeader.module.css';
 
 
 
-
 export const TableHeader=()=> {
   return (
     <div className={style.table_header}>

@@ -4,15 +4,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-margin:0 auto;
+    margin: 0 auto;
     gap: 1%;
 }
-
 .pagination .text {
     opacity: 0.6;
     font-size: 1.3rem;
 }
-
 .page {
     height: 2rem;
     width: 2rem;
@@ -24,12 +22,10 @@ margin:0 auto;
     border-radius: 0.5rem;
     cursor: pointer;
 }
-
 .page.active,
 .page:hover {
     background-color: #d4dae9;
 }
-
 .select {
     font-weight: bold;
     border-radius: 0.7rem;
@@ -38,22 +34,20 @@ margin:0 auto;
     padding: 7px;
     background-color: #d4dae9;
 }
+
 @media screen and (max-width: 590px) {
-    .pagination{
+    .pagination {
         flex-wrap: wrap;
     }
     .pagination .text {
         opacity: 0.6;
         font-size: .7rem;
     }
-
     .select {
         padding: 0;
     }
-
     .page {
-        width:1.2rem;
+        width: 1.2rem;
         height: 1.2rem;
-
     }
 }

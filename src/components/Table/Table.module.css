@@ -15,6 +15,7 @@
 .tableItem {
     width: 25%;
     padding: 5px;
+    font-family: "Open Sans",sans-serif;
     font-size: 15px;
     font-weight: 500;
     white-space: nowrap;
@@ -23,6 +24,11 @@
 }
 .tableItem_under{
     color: #6e768a;
+    transition: background 9999999s;
+}
+.tableItem_under:active{
+    color: red;
+    transition: background 0s;
 }
 
 .table:active{
