@@ -4,7 +4,7 @@
 }
 
 .filter input {
-    width: 115px;
+    width: calc(75px + 3vw);
     height: 33px;
     margin-left: 20px;
     padding-left: 10px;
@@ -23,7 +23,7 @@
 }
 
 .filter button {
-    width: 100px;
+    width: calc(95px + 3vw);
     height: 35px;
     float: right;
     font-family: "Open Sans", sans-serif;
@@ -55,7 +55,6 @@
     }
 
     .filter input {
-        width: 90px;
         margin: 10px auto;
     }
 
@@ -64,7 +63,6 @@
     }
 
     .filter button {
-        width: 110px;
         margin: 0 auto;
     }
 

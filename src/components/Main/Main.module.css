@@ -13,7 +13,7 @@
     margin: 0 auto;
     border-radius: 10px;
     background: linear-gradient(355deg, #04997e,#3ddd00);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    overflow: hidden;
+    overflow: auto;
     -webkit-box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);
     box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);

@@ -1,6 +1,7 @@
 .superSelect {
-    width: 135px;
+    width: calc(95px + 3vw);
     height: 35px;
+    font-size: calc(10px + .1vw);
     margin-left: 20px;
     outline: none;
     border: none;
@@ -22,8 +23,6 @@
 
 @media screen and (max-width: 884px) {
     .superSelect {
-        width: 110px;
         margin: 10px auto;
-        font-size: 12px;
     }
 }

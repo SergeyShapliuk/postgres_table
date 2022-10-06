@@ -17,14 +17,8 @@
 
 .tableHeader__item {
     font-family: 'Akaya Telivigala', cursive;
-    font-size: 22px;
+    font-size: calc(10px + 1vw);
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-@media screen and (max-width: 590px) {
-    .tableHeader__item {
-        font-size: 12px;
-    }
 }
